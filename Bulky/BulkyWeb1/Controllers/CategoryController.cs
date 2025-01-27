@@ -21,5 +21,52 @@ namespace BulkyWeb1.Controllers
         {
             return View();
         }
+
+        //[HttpPost]
+        //public IActionResult Create(Category obj)
+        //{
+        //    if (ModelState.IsValid == true)
+        //    {
+        //        _db.Categories.Add(obj);
+        //        var success = _db.SaveChanges();
+        //        if (success>0)
+        //        {
+        //            TempData["SuccessMessage"] = "Data Inserted Successfull";
+        //        }
+        //        else
+        //        {
+        //            TempData["SuccessMessage"] = "Data Not Inserted";
+        //        }
+        //    }
+        //    else
+        //    {
+        //         TempData["SuccessMessage"] = "Data Not Valid";
+        //         return View();
+        //    }
+        //    return RedirectToAction("Index","Category");
+        //}
+
+        [HttpPost]
+        public IActionResult Create(Category obj)
+        {
+            if (ModelState.IsValid == true)
+            {
+                _db.Categories.Add(obj);
+                var success = _db.SaveChanges();
+                if (success > 0)
+                {
+                    TempData["SuccessMessage"] = "Data Inserted Successfull";
+                }
+                else
+                {
+                    TempData["SuccessMessage"] = "Data Not Inserted";
+                }
+            }
+            else
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Category");
+        }
     }
 }

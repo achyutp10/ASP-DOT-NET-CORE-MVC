@@ -29,6 +29,10 @@ namespace BulkyWeb1.Controllers
             {
                 ModelState.AddModelError("Name","The DisplayOrder cannot exactly match the Name");
             }
+            if (obj.Name != null && obj.Name.ToLower() == "test")
+            {
+                ModelState.AddModelError("", "Test is invalid value");
+            }
             if (ModelState.IsValid == true)
             {
                 _db.Categories.Add(obj);

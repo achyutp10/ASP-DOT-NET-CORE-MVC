@@ -22,38 +22,18 @@ namespace BulkyWeb1.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public IActionResult Create(Category obj)
-        //{
-        //    if (ModelState.IsValid == true)
-        //    {
-        //        _db.Categories.Add(obj);
-        //        var success = _db.SaveChanges();
-        //        if (success>0)
-        //        {
-        //            TempData["SuccessMessage"] = "Data Inserted Successfull";
-        //        }
-        //        else
-        //        {
-        //            TempData["SuccessMessage"] = "Data Not Inserted";
-        //        }
-        //    }
-        //    else
-        //    {
-        //         TempData["SuccessMessage"] = "Data Not Valid";
-        //         return View();
-        //    }
-        //    return RedirectToAction("Index","Category");
-        //}
-
         [HttpPost]
         public IActionResult Create(Category obj)
         {
+            if (obj.Name == obj.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("Name","The DisplayOrder cannot exactly match the Name");
+            }
             if (ModelState.IsValid == true)
             {
                 _db.Categories.Add(obj);
                 var success = _db.SaveChanges();
-                if (success > 0)
+                if (success>0)
                 {
                     TempData["SuccessMessage"] = "Data Inserted Successfull";
                 }
@@ -64,9 +44,10 @@ namespace BulkyWeb1.Controllers
             }
             else
             {
-                return View();
+                 TempData["SuccessMessage"] = "Data Not Valid";
+                 return View();
             }
-            return RedirectToAction("Index", "Category");
+            return RedirectToAction("Index","Category");
         }
     }
 }

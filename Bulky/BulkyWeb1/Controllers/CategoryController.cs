@@ -73,25 +73,18 @@ namespace BulkyWeb1.Controllers
         [HttpPost]
         public IActionResult Edit(Category obj)
         {
-            if (obj.Name == obj.DisplayOrder.ToString())
-            {
-                ModelState.AddModelError("Name","The DisplayOrder cannot exactly match the Name");
-            }
-            if (obj.Name != null && obj.Name.ToLower() == "test")
-            {
-                ModelState.AddModelError("", "Test is invalid value");
-            }
+            
             if (ModelState.IsValid == true)
             {
-                _db.Categories.Add(obj);
+                _db.Categories.Update(obj);
                 var success = _db.SaveChanges();
                 if (success>0)
                 {
-                    TempData["SuccessMessage"] = "Data Inserted Successfull";
+                    TempData["SuccessMessage"] = "Data Updated Successfull";
                 }
                 else
                 {
-                    TempData["SuccessMessage"] = "Data Not Inserted";
+                    TempData["SuccessMessage"] = "Data Not Updated";
                 }
             }
             else
@@ -101,7 +94,47 @@ namespace BulkyWeb1.Controllers
             }
             return RedirectToAction("Index","Category");
         }
-       
+
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            Category? categoryFromDb = _db.Categories.Find(id);
+
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDb);
+        }
+
+        [HttpPost,ActionName("Delete")]
+        public IActionResult DeletePOST(int? id)
+        {
+            Category? obj = _db.Categories.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _db.Categories.Remove(obj);
+
+            var success = _db.SaveChanges();
+
+            
+                if (success > 0)
+                {
+                    TempData["SuccessMessage"] = "Data Deleted Successfull";
+                }
+                else
+                {
+                    TempData["SuccessMessage"] = "Data Not Deleted";
+                }
+            return RedirectToAction("Index", "Category");
+        }
+
 
     }
 }

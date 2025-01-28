@@ -1,9 +1,17 @@
 ﻿@if (TempData["SuccessMessage"] != null)
 {
-	<h2>@TempData["SuccessMessage"]</h2>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<script type="text/javascript">
+	toastr.success('@TempData["SuccessMessage"]');
+	</script>
 }
 @if (TempData["ErrorMessage"] != null)
 {
-	<h2>@TempData["ErrorMessage"]</h2>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<script type="text/javascript">
+		toastr.error('@TempData["ErrorMessage"]');
+	</script>
 
 }

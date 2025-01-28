@@ -43,12 +43,12 @@ namespace BulkyWeb1.Controllers
                 }
                 else
                 {
-                    TempData["SuccessMessage"] = "Data Not Inserted";
+                    TempData["ErrorMessage"] = "Data Not Inserted";
                 }
             }
             else
             {
-                 TempData["SuccessMessage"] = "Data Not Valid";
+                 TempData["ErrorMessage"] = "Data Not Valid";
                  return View();
             }
             return RedirectToAction("Index","Category");
@@ -84,12 +84,12 @@ namespace BulkyWeb1.Controllers
                 }
                 else
                 {
-                    TempData["SuccessMessage"] = "Data Not Updated";
+                    TempData["ErrorMessage"] = "Data Not Updated";
                 }
             }
             else
             {
-                 TempData["SuccessMessage"] = "Data Not Valid";
+                 TempData["ErrorMessage"] = "Data Not Valid";
                  return View();
             }
             return RedirectToAction("Index","Category");
@@ -130,7 +130,7 @@ namespace BulkyWeb1.Controllers
                 }
                 else
                 {
-                    TempData["SuccessMessage"] = "Data Not Deleted";
+                    TempData["ErrorMessage"] = "Data Not Deleted";
                 }
             return RedirectToAction("Index", "Category");
         }

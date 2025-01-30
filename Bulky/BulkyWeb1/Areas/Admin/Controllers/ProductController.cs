@@ -2,6 +2,7 @@
 using Bulky.DataAccess.Data;
 using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
+using Bulky.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -24,35 +25,46 @@ namespace BulkyWeb1.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category
-                .GetAll().Select(u => new SelectListItem
+            //IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem{
+            //    Text = u.Name,Value = u.Id.ToString()});
+            ////ViewBag.CategoryList = CategoryList;
+            //ViewData["CategoryList"] = CategoryList;
+
+            ProductVM productVM = new()
+            {
+                CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
                 {
                     Text = u.Name,
                     Value = u.Id.ToString()
-                });
-            //ViewBag.CategoryList = CategoryList;
-            ViewData["CategoryList"] = CategoryList;
-            return View();
+                }),
+                Product = new Product()
+            };
+            return View(productVM);
         }
 
         [HttpPost]
-        public IActionResult Create(Product obj)
+        public IActionResult Create(ProductVM obj)
         {
-            if (obj.Title != null && obj.Title.ToLower() == "test")
+            if (obj.Product.Title != null && obj.Product.Title.ToLower() == "test")
             {
                 ModelState.AddModelError("", "Test is invalid value");
             }
-            if (ModelState.IsValid == true)
+            if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Add(obj);
+                _unitOfWork.Product.Add(obj.Product);
                 TempData["SuccessMessage"] = "Data Created";
 
                 _unitOfWork.Save();
             }
             else
             {
+                obj.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                });
                 TempData["ErrorMessage"] = "Data Not Valid";
-                return View();
+                return View(obj);
             }
             return RedirectToAction("Index", "Product");
         }

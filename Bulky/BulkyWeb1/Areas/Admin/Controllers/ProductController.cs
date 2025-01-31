@@ -23,7 +23,7 @@ namespace BulkyWeb1.Areas.Admin.Controllers
             return View(objCList);
         }
 
-        public IActionResult Create()
+        public IActionResult Upsert(int? id) // UpdateInsert
         {
             //IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem{
             //    Text = u.Name,Value = u.Id.ToString()});
@@ -39,11 +39,21 @@ namespace BulkyWeb1.Areas.Admin.Controllers
                 }),
                 Product = new Product()
             };
-            return View(productVM);
+            if (id == null || id == 0)
+            {
+                //Create
+                return View(productVM);
+            }
+            else
+            {
+                // Update
+                productVM.Product = _unitOfWork.Product.Get(u => u.Id == id);
+                return View(productVM);
+            }
         }
 
         [HttpPost]
-        public IActionResult Create(ProductVM obj)
+        public IActionResult Upsert(ProductVM obj, IFormFile? file)
         {
             if (obj.Product.Title != null && obj.Product.Title.ToLower() == "test")
             {
@@ -69,39 +79,39 @@ namespace BulkyWeb1.Areas.Admin.Controllers
             return RedirectToAction("Index", "Product");
         }
 
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            Product? productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
-            //Category? categoryFromDb1 = _db.Categories.FirstOrDefault(u=>u.Id==id);
-            //Category? categoryFromDb2 = _db.Categories.Where(u=>u.Id==id).FirstOrDefault();
-            if (productFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(productFromDb);
-        }
+        //public IActionResult Edit(int? id)
+        //{
+        //    if (id == null || id == 0)
+        //    {
+        //        return NotFound();
+        //    }
+        //    Product? productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
+        //    //Category? categoryFromDb1 = _db.Categories.FirstOrDefault(u=>u.Id==id);
+        //    //Category? categoryFromDb2 = _db.Categories.Where(u=>u.Id==id).FirstOrDefault();
+        //    if (productFromDb == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(productFromDb);
+        //}
 
-        [HttpPost]
-        public IActionResult Edit(Product obj)
-        {
+        //[HttpPost]
+        //public IActionResult Edit(Product obj)
+        //{
 
-            if (ModelState.IsValid == true)
-            {
-                _unitOfWork.Product.Update(obj);
-                TempData["SuccessMessage"] = "Data Updated";
-                _unitOfWork.Save();
-            }
-            else
-            {
-                TempData["ErrorMessage"] = "Data Not Valid";
-                return View();
-            }
-            return RedirectToAction("Index", "Product");
-        }
+        //    if (ModelState.IsValid == true)
+        //    {
+        //        _unitOfWork.Product.Update(obj);
+        //        TempData["SuccessMessage"] = "Data Updated";
+        //        _unitOfWork.Save();
+        //    }
+        //    else
+        //    {
+        //        TempData["ErrorMessage"] = "Data Not Valid";
+        //        return View();
+        //    }
+        //    return RedirectToAction("Index", "Product");
+        //}
 
 
         public IActionResult Delete(int? id)

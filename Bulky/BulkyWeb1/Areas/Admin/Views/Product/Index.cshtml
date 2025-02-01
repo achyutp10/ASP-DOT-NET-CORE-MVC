@@ -26,14 +26,14 @@
 			</thead>
 
 			<tbody>
-				@foreach (var obj in Model.OrderBy(u => u.Price))
+				@foreach (var obj in Model)
 				{
 					<tr>
 						<td>@obj.Title</td>
 						<td>@obj.ISBN</td>
 						<td>@obj.Author</td>
 						<td>@obj.ListPrice</td>
-						<td></td>
+						<td>@obj.Category.Name</td>
 						<td>
 							<div class="w-60 btn-group" role="group">
 								<a asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-primary mx-2">

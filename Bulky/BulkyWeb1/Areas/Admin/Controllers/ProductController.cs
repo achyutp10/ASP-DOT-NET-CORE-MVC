@@ -178,5 +178,17 @@ namespace BulkyWeb1.Areas.Admin.Controllers
             _unitOfWork.Save();
             return RedirectToAction("Index", "Product");
         }
+
+        #region API CALLS
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<Product> objCList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
+            return Json(new { data = objCList });
+        }
+
+
+        #endregion
     }
 }

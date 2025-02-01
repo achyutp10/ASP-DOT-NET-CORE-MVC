@@ -89,13 +89,16 @@ namespace BulkyWeb1.Areas.Admin.Controllers
                 if (obj.Product.Id == 0)
                 {
                     _unitOfWork.Product.Add(obj.Product);
+                    TempData["SuccessMessage"] = "Data Created";
+
                 }
                 else
                 {
                     _unitOfWork.Product.Update(obj.Product);
+                    TempData["SuccessMessage"] = "Data Updated";
+
                 }
                 _unitOfWork.Save();
-                TempData["SuccessMessage"] = "Data Created";
                 return RedirectToAction("Index");
             }
             else

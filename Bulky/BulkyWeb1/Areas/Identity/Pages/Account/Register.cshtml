@@ -91,19 +91,20 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-floating mb-3">
-                                <select asp-for="Input.CompanyId" asp-items="@Model.Input.CompanyList" class="form-select">
-                                    <option disabled selected>--Select Company--</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-3">
-                            <div class="form-floating mb-3">
                                 <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
                                     <option disabled selected>--Select Role--</option>
                                 </select>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-floating mb-3">
+                                <select asp-for="Input.CompanyId" style="display: none;" asp-items="@Model.Input.CompanyList" class="form-select">
+                                    <option disabled selected>--Select Company--</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
                                 <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Phone Number" />
@@ -139,4 +140,17 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function()  {
+            $("#Input_Role").change(function() {
+                var selection = $('#Input_Role Option:Selected').text();
+                if(selection=='Company'){
+                    $("#Input_CompanyId").show();
+                } 
+                else{
+                    $("#Input_CompanyId").hide();
+                }
+            })
+        })
+    </script>
 }

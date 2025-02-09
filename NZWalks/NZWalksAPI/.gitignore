@@ -9,7 +9,7 @@
 *.tlog
 
 # Rider specific files
-.idea/
+.idea/   
 
 # Build results
 bin/

@@ -1,0 +1,62 @@
+# Visual Studio specific files
+.vs/
+*.user
+*.suo
+*.cache
+*.pdb
+*.userosscache
+*.vspx
+*.tlog
+
+# Rider specific files
+.idea/   
+
+# Build results
+bin/
+obj/
+out/
+App_Data/
+
+# Logs
+*.log
+*.tlg
+
+# Web specific files
+node_modules/
+bower_components/
+wwwroot/lib/
+
+# Resharper files
+_ReSharper*/
+*.DotSettings.user
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Packages
+*.nupkg
+packages/
+*.swp
+project.lock.json
+project.fragment.lock.json
+
+# User specific files
+*.rsuser
+*.resharper
+*.ide
+
+# Configuration files
+*.config.local
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.tmp
+*.temp
+*.tmp.dir
+./App_Data
+*.mdf

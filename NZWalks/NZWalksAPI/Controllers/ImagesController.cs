@@ -30,7 +30,7 @@ namespace NZWalksAPI.Controllers
                     File = request.File,
                     FileExtension = Path.GetExtension(request.File.FileName),
                     FileSizeInBytes = request.File.Length,
-                    FileName = request.File.FileName,
+                    FileName = request.FileName,
                     FileDescription = request.FileDescription,
                 };
 

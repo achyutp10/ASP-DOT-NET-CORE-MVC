@@ -87,7 +87,7 @@ namespace NZWalksAPI.Data
                 {
                     Id = Guid.Parse("f077a22e-4248-4bf6-b564-c7cf4e250263"),
                     Name = "Southland",
-                    Code = "STL",
+                    Code = "SOT",
                     RegionImageUrl = null
                 },
             };
